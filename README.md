@@ -16,7 +16,9 @@ master分支将保留一周，后续app分支将替换为master
 - tensorflow InvalidArgumentError: You must feed a value for placeholder tensor with dtype float 
 如果出现这个问题，说明是TensorFlow 1.14版本问题源代码是1.8 的 
 # 可将tf改成 1.13.1-gpu 版本
--
+# 如果导入TensorFlow 出错
+ -ImportError: libcublas.so.10.0: cannot open shared object file: No such file or directory 
+ -  这个是说cuda和TensorFlow 版本 不对  TensorFlow1.13.1 不能运行在 cuda 10.1  上  改一下版本 其实TensorFlow1.14 也可以在cuda 10.0 上运行
 # 相关版本匹配问题  
 ## TensorFlow1.13.1 + cuda10.0 +cudnn 7.6 （这个可以运行）
 ##  tensorflow1.8 + cuda 9.0 （这个可以运行）
@@ -129,16 +131,16 @@ http://127.0.0.1:8080/ocr
 
 # _______________________
 一下是本人两个周来复现本项目的心得体会
-'[libprotobuf FATAL google/protobuf/stubs/common.cc:61] This program requires version 3.3.0 of the Protocol Buffer runtime library, but the installed version is 2.6.1. Please update your library. If you compiled the program yourself, make sure that your headers are from the same version of Protocol Buffers as your link-time library. (Version verification failed in "google/protobuf/descriptor.pb.cc".)
+'''[libprotobuf FATAL google/protobuf/stubs/common.cc:61] This program requires version 3.3.0 of the Protocol Buffer runtime library, but the installed version is 2.6.1. Please update your library. If you compiled the program yourself, make sure that your headers are from the same version of Protocol Buffers as your link-time library. (Version verification failed in "google/protobuf/descriptor.pb.cc".)
 terminate called after throwing an instance of 'google::protobuf::FatalException'
-what(): This program requires version 3.3.0 of the Protocol Buffer runtime library, but the installed version is 2.6.1. Please update your library. If you compiled the program yourself, make sure that your headers are from the same version of Protocol Buffers as your link-time library. (Version verification failed in "google/protobuf/descriptor.pb.cc".)'
+what(): This program requires version 3.3.0 of the Protocol Buffer runtime library, but the installed version is 2.6.1. Please update your library. If you compiled the program yourself, make sure that your headers are from the same version of Protocol Buffers as your link-time library. (Version verification failed in "google/protobuf/descriptor.pb.cc".)'''
 
 出现以上的错，重新TensorFlow 先 
 * pip uninstall tensorboard tensorflow-estimator tensorflow-gpu 
 在重新装  pip install tensorflow-gpu==1.13.1  -i https://pypi.tuna.tsinghua.edu.cn/simple/
 
 
-'>>> import tensorflow as tf
+'''>>> import tensorflow as tf
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
   File "/home/zengyj/.conda/envs/chineseocr/lib/python3.6/site-packages/tensorflow/__init__.py", line 24,
@@ -147,20 +149,20 @@ Traceback (most recent call last):
     from tensorflow.core.framework.graph_pb2 import *
   File "/home/zengyj/.conda/envs/chineseocr/lib/python3.6/site-packages/tensorflow/core/framework/graph_p
     from google.protobuf import descriptor as _descriptor
-ImportError: cannot import name 'descriptor'
-'
+* ImportError: cannot import name 'descriptor'
+'''
    
-' Using cached https://pypi.tuna.tsinghua.edu.cn/packages/7b/b1/0ad4ae02e17ddd62109cd54c291e311c4b5fd09b4
-Requirement already satisfied: protobuf>=3.6.1 in ./.conda/envs/chineseocr/lib/python3.6/site-packages (f
-Requirement already satisfied: six>=1.10.0 in ./.conda/envs/chineseocr/lib/python3.6/site-packages (from
-Requirement already satisfied: gast>=0.2.0 in ./.local/lib/python3.6/site-packages (from tensorflow-gpu==
-Requirement already satisfied: termcolor>=1.1.0 in ./.local/lib/python3.6/site-packages (from tensorflow-
-Requirement already satisfied: keras-applications>=1.0.6 in ./.local/lib/python3.6/site-packages (from te
-Requirement already satisfied: astor>=0.6.0 in ./.local/lib/python3.6/site-packages (from tensorflow-gpu=
-Requirement already satisfied: wheel>=0.26 in ./.conda/envs/chineseocr/lib/python3.6/site-packages (from
-Requirement already satisfied: grpcio>=1.8.6 in ./.local/lib/python3.6/site-packages (from tensorflow-gpu
-Requirement already satisfied: keras-preprocessing>=1.0.5 in ./.local/lib/python3.6/site-packages (from t
-Requirement already satisfied: numpy>=1.13.3 in ./.conda/envs/chineseocr/lib/python3.6/site-packages (fro'
+''' Using cached https://pypi.tuna.tsinghua.edu.cn/packages/7b/b1/0ad4ae02e17ddd62109cd54c291e311c4b5fd09b4
+* Requirement already satisfied: protobuf>=3.6.1 in ./.conda/envs/chineseocr/lib/python3.6/site-packages (f
+*  Requirement already satisfied: six>=1.10.0 in ./.conda/envs/chineseocr/lib/python3.6/site-packages (from
+* Requirement already satisfied: gast>=0.2.0 in ./.local/lib/python3.6/site-packages (from tensorflow-gpu==
+* Requirement already satisfied: termcolor>=1.1.0 in ./.local/lib/python3.6/site-packages (from tensorflow-
+* Requirement already satisfied: keras-applications>=1.0.6 in ./.local/lib/python3.6/site-packages (from te
+* Requirement already satisfied: astor>=0.6.0 in ./.local/lib/python3.6/site-packages (from tensorflow-gpu=
+* Requirement already satisfied: wheel>=0.26 in ./.conda/envs/chineseocr/lib/python3.6/site-packages (from
+* Requirement already satisfied: grpcio>=1.8.6 in ./.local/lib/python3.6/site-packages (from tensorflow-gpu
+* Requirement already satisfied: keras-preprocessing>=1.0.5 in ./.local/lib/python3.6/site-packages (from t
+* Requirement already satisfied: numpy>=1.13.3 in ./.conda/envs/chineseocr/lib/python3.6/site-packages (fro'''
 出现以上的错 
 出现这个错一般是protobuf 版本不对
 -  pip uninstall protobuf
