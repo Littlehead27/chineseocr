@@ -115,7 +115,7 @@ docker run -d -p 8080:8080 chineseocr /root/anaconda3/bin/python app.py
 
 ## 访问服务
 http://127.0.0.1:8080/ocr
-
+# 如果实在服务器上运行的 上面的IP 要换成服务器ip  
 <img width="500" height="300" src="https://github.com/chineseocr/chineseocr/blob/master/test/demo.png"/>
 
 
