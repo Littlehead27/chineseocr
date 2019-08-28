@@ -3,15 +3,15 @@ master分支将保留一周，后续app分支将替换为master
 
 # 注意的事项 
 - python的版本要对 如果出现 安装web.py 版本要对 可能和python3.7 兼容有问题 
-File "C:\anaconda3\lib\site-packages\web\debugerror.py", line 313, in debugerror
+'File "C:\anaconda3\lib\site-packages\web\debugerror.py", line 313, in debugerror
     return web._InternalError(djangoerror())
   File "C:\anaconda3\lib\site-packages\web\debugerror.py", line 271, in djangoerror
     _get_lines_from_file(filename, lineno, 7)
   File "C:\anaconda3\lib\site-packages\web\debugerror.py", line 246, in _get_lines_from_file
-    source = open(filename).readlines()
-UnicodeDecodeError: 'gbk' codec can't decode byte 0xa2 in position 452: illegal multibyte sequence
-UnicodeDecodeError: 'gbk' codec can't decode bytes in position 1-2: illegal multibyte sequence．
-出现以上错误 是编码格式的问题，改一下源代码里面报错的地方。 如'open(filename)'后面加一个，‘，encoding = 'utf-8'’  可解决这个问题
+    source = open(filename).readlines() '
+- UnicodeDecodeError: 'gbk' codec can't decode byte 0xa2 in position 452: illegal multibyte sequence
+- UnicodeDecodeError: 'gbk' codec can't decode bytes in position 1-2: illegal multibyte sequence．
+- 出现以上错误 是编码格式的问题，改一下源代码里面报错的地方。 如'open(filename)'后面加一个，‘，encoding = 'utf-8'’  可解决这个问题
 
 - tensorflow InvalidArgumentError: You must feed a value for placeholder tensor with dtype float 
 如果出现这个问题，说明是TensorFlow 1.14版本问题源代码是1.8 的 
